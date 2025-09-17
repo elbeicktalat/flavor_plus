@@ -51,6 +51,12 @@ enum FlavorType {
 
     return type;
   }
+
+  /// Define Flavor from environment variable.
+  static fromEnvironment(String key) {
+    assert(key.isNotEmpty, 'Flavor.fromEnvironment cannot receive an empty value.');
+    return FlavorType.parse(String.fromEnvironment(key));
+  }
 }
 
 /// Dedicated holder of all values whose can be different between flavors.
@@ -109,6 +115,9 @@ class Flavor {
   /// The singleton instance of this class.
   static Flavor get instance => _instance!;
   static Flavor? _instance;
+
+  /// Shorthand for [Flavor.instance].
+  static Flavor get I => instance;
 
   /// Whether the current flavor is development.
   static bool get isDevelopment => instance.flavor == FlavorType.dev;
